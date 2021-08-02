@@ -1,0 +1,113 @@
+plt.figure()
+
+folder_single_nofeature_111_0 = 'log/two-gaussian-linpar-d:2700-sigma:10.0-delta:0.0-m:50-seed:111-alpha:1.0-lr:0.001-iter:2000-opt:SGD-bs:10-log_interval:1-wd:0.0-ncenter:2'
+data_single_nofeature_111_0 = load_data(os.path.join(folder_single_nofeature_111_0, 'log.csv'))
+
+folder_single_nofeature_111_001 = 'log/logistic-random-feature-single_nofeature-d:2700-dphi:10000-sigma:10.0-delta:0.0-m:50-seed:111-alpha:1.0-lr:0.001-iter:2000-opt:SGD-bs:10-log_interval:1-wd:0.01'
+data_single_nofeature_111_001 = load_data(os.path.join(folder_single_nofeature_111_001, 'log.csv'))
+
+folder_single_nofeature_111_01 = 'log/logistic-random-feature-single_nofeature-d:2700-dphi:10000-sigma:10.0-delta:0.0-m:50-seed:111-alpha:1.0-lr:0.001-iter:2000-opt:SGD-bs:10-log_interval:1-wd:0.1'
+data_single_nofeature_111_01 = load_data(os.path.join(folder_single_nofeature_111_01, 'log.csv'))
+
+folder_single_nofeature_111_1 = 'log/logistic-random-feature-single_nofeature-d:2700-dphi:10000-sigma:10.0-delta:0.0-m:50-seed:111-alpha:1.0-lr:0.001-iter:2000-opt:SGD-bs:10-log_interval:1-wd:1.0'
+data_single_nofeature_111_1 = load_data(os.path.join(folder_single_nofeature_111_1, 'log.csv'))
+
+
+folder_single_nofeature_111_0_sgd = 'log/logistic-random-feature-single_nofeature-d:2700-dphi:10000-sigma:10.0-delta:1.0-m:50-seed:111-alpha:1.0-lr:0.001-iter:2000-opt:SGD-bs:10-log_interval:1-wd:0.0'
+data_single_nofeature_111_0_sgd = load_data(os.path.join(folder_single_nofeature_111_0_sgd, 'log.csv'))
+
+folder_single_nofeature_111_001_sgd = 'log/logistic-random-feature-single_nofeature-d:2700-dphi:10000-sigma:10.0-delta:1.0-m:50-seed:111-alpha:1.0-lr:0.001-iter:2000-opt:SGD-bs:10-log_interval:1-wd:0.01'
+data_single_nofeature_111_001_sgd = load_data(os.path.join(folder_single_nofeature_111_001_sgd, 'log.csv'))
+
+folder_single_nofeature_111_01_sgd = 'log/logistic-random-feature-single_nofeature-d:2700-dphi:10000-sigma:10.0-delta:1.0-m:50-seed:111-alpha:1.0-lr:0.001-iter:2000-opt:SGD-bs:10-log_interval:1-wd:0.1'
+data_single_nofeature_111_01_sgd = load_data(os.path.join(folder_single_nofeature_111_01_sgd, 'log.csv'))
+
+folder_single_nofeature_111_1_sgd = 'log/logistic-random-feature-single_nofeature-d:2700-dphi:10000-sigma:10.0-delta:1.0-m:50-seed:111-alpha:1.0-lr:0.001-iter:2000-opt:SGD-bs:10-log_interval:1-wd:1.0'
+data_single_nofeature_111_1_sgd = load_data(os.path.join(folder_single_nofeature_111_1_sgd, 'log.csv'))
+
+
+data_dicts = [
+    ('fb, wd=0', data_single_nofeature_111_0),
+    ('fb, wd=0.01', data_single_nofeature_111_001),
+    ('fb, wd=0.1', data_single_nofeature_111_01),
+    ('fb, wd=1.0', data_single_nofeature_111_1),
+    ('sb, wd=0', data_single_nofeature_111_0_sgd),
+    ('sb, wd=0.01', data_single_nofeature_111_001_sgd),
+    ('sb, wd=0.1', data_single_nofeature_111_01_sgd),
+    ('sb, wd=1.0', data_single_nofeature_111_1_sgd),
+             ]
+
+# Train PLOTS
+fig, axs = plt.subplots(1, 4, figsize=(32, 6))
+
+for name, data_dict in data_dicts:
+    axs[0].plot(data_dict['iter'], data_dict['train_loss'], alpha=1.0)
+
+axs[0].grid()
+axs[0].set_xlim(-1, 2000)
+axs[0].set_yscale('log')
+# axs[0].legend([name for (name, data_dict) in data_dicts], bbox_to_anchor=(1.0, 0.6),
+#            fontsize=16)
+# plt.xticks(range(0, 400000, 20000), fontsize=15)
+for tick in axs[0].yaxis.get_majorticklabels():  # example for xaxis
+    tick.set_fontsize(15) 
+axs[0].set_xlabel('Iteration', fontsize=20)
+axs[0].set_ylabel('Train Loss', fontsize=20)
+axs[0].set_title('Logistic Regression, Seed=111', fontsize=20)
+# plt.ticklabel_format(style='sci', axis='x', scilimits=(0,0))
+# plt.savefig('toyexample_more.pdf', bbox_inches='tight')
+
+
+for name, data_dict in data_dicts:
+    axs[1].plot(data_dict['iter'], data_dict['train_error'], alpha=1.0)
+
+axs[1].grid()
+axs[1].set_xlim(-1, 2000)
+# axs[1].set_yscale('log')
+# axs[1].legend([name for (name, data_dict) in data_dicts], bbox_to_anchor=(1.0, 0.6),
+#            fontsize=16)
+# plt.xticks(range(0, 400000, 20000), fontsize=15)
+for tick in axs[1].yaxis.get_majorticklabels():  # example for xaxis
+    tick.set_fontsize(15) 
+axs[1].set_xlabel('Iteration', fontsize=20)
+axs[1].set_ylabel('Train Error', fontsize=20)
+axs[1].set_title('Logistic Regression, Seed=111', fontsize=20)
+# plt.ticklabel_format(style='sci', axis='x', scilimits=(0,0))
+# plt.savefig('toyexample_more.pdf', bbox_inches='tight')
+
+
+# Test plots
+for name, data_dict in data_dicts:
+    axs[2].plot(data_dict['iter'], data_dict['test_loss'], alpha=1.0)
+
+axs[2].grid()
+axs[2].set_xlim(-1, 2000)
+axs[2].set_yscale('log')
+# axs[2].legend([name for (name, data_dict) in data_dicts], bbox_to_anchor=(1.0, 0.6),
+#            fontsize=16)
+# plt.xticks(range(0, 400000, 20000), fontsize=15)
+for tick in axs[2].yaxis.get_majorticklabels():  # example for xaxis
+    tick.set_fontsize(15) 
+axs[2].set_xlabel('Iteration', fontsize=20)
+axs[2].set_ylabel('Test Loss', fontsize=20)
+axs[2].set_title('Logistic Regression, Seed=111', fontsize=20)
+# plt.ticklabel_format(style='sci', axis='x', scilimits=(0,0))
+# plt.savefig('toyexample_more.pdf', bbox_inches='tight')
+
+for name, data_dict in data_dicts:
+    axs[3].plot(data_dict['iter'], data_dict['test_error'], alpha=1.0)
+
+axs[3].grid()
+axs[3].set_xlim(-1, 2000)
+# axs[3].set_yscale('log')
+axs[3].legend([name for (name, data_dict) in data_dicts], bbox_to_anchor=(1.0, 0.8),
+           fontsize=20)
+# plt.xticks(range(0, 400000, 20000), fontsize=15)
+for tick in axs[3].yaxis.get_majorticklabels():  # example for xaxis
+    tick.set_fontsize(15) 
+axs[3].set_xlabel('Iteration', fontsize=20)
+axs[3].set_ylabel('Test Error', fontsize=20)
+axs[3].set_title('Logistic Regression, Seed=111', fontsize=20)
+# plt.ticklabel_format(style='sci', axis='x', scilimits=(0,0))
+# plt.savefig('toyexample_more.pdf', bbox_inches='tight')
+
