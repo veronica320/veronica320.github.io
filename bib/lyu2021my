@@ -1,0 +1,8 @@
+@misc{lyu2021my,
+      title={Is "my favorite new movie" my favorite movie? Probing the Understanding of Recursive Noun Phrases}, 
+      author={Qing Lyu and Hua Zheng and Daoxin Li and Li Zhang and Marianna Apidianaki and Chris Callison-Burch},
+      year={2021},
+      eprint={2112.08326},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL}
+}
